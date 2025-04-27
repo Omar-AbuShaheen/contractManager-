@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import ContactForm from "./components/ContactForm";
+// import ContactList from "./components/ContactList";
+import './App.css'; // Optional: You can create App-wide styles if you want
 
 function App() {
+  const [contacts, setContacts] = useState([]);
+
+  const addContact = (contact) => {
+    setContacts([...contacts, contact]);
+  };
+
+  const deleteContact = (index) => {
+    const updatedContacts = contacts.filter((_, i) => i !== index);
+    setContacts(updatedContacts);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">📞 Contact Manager App</h1>
+      <ContactForm addContact={addContact} />
+      {/* <ContactList contacts={contacts} deleteContact={deleteContact} /> */}
     </div>
   );
 }
